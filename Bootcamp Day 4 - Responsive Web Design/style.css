@@ -1,0 +1,671 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #299144;
+    background: linear-gradient(90deg, rgb(0, 49, 13) 0%, rgba(125, 183, 80, 1) 50%, rgb(0, 49, 13) 100%);
+
+    font-family: "Roboto", sans-serif;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-container {
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 50vw;
+}
+
+.logo-container img {
+    width: 250px;
+    margin: 10px 0;
+}
+
+
+/*
+NAVBAR  
+----------------------------*/
+.navbar {
+    position: sticky;
+    top: 10px;
+    z-index: 2;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    list-style-type: none;
+
+    background-color: #fff;
+    color: #42B4CA;
+
+    box-shadow: 1px 0 15px #A4C955;
+
+    padding: 10px;
+
+    border-radius: 15px;
+
+    margin: 1rem;
+
+    width: fit-content;
+}
+
+.navlink a {
+    margin: 10px;
+    color: #42B4CA;
+    text-decoration: none;
+
+    transition: all ease-in-out .3s;
+}
+
+.navlink a:hover {
+    color: #A4C955;
+}
+
+/*
+----------------------------*/
+
+/*
+MOBILE NAVBAR
+----------------------------*/
+
+.mobile-navbar,
+.mobile-menu {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .navbar {
+        display: none;
+    }
+
+    .mobile-navbar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        background-color: #fff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        padding: 10px 20px;
+        position: sticky;
+        top: 10px;
+        z-index: 100;
+        border-radius: 15px;
+        transition: all ease-in-out .3s;
+    }
+
+    .mobile-navbar button {
+        background: none;
+        border: none;
+        cursor: pointer;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+
+        color: #42B4CA;
+    }
+
+    .mobile-navbar img {
+        width: 40px;
+        height: 40px;
+        transition: transform 0.3s ease;
+    }
+
+    .mobile-navbar button:hover img {
+        transform: scale(1.1);
+    }
+
+    .mobile-menu {
+        display: block;
+        z-index: 2;
+        position: sticky;
+        top: 65px;
+        width: 100%;
+        list-style: none;
+        padding: 0;
+        margin-bottom: 10px;
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.4s ease-in-out;
+        background-color: #fff;
+        border-radius: 0 0 15px 15px;
+        transition: all ease-in-out .3s;
+        box-shadow: 1px 0 15px #A4C955;
+    }
+
+    .mobile-menu.open {
+        max-height: 500px;
+        opacity: 1;
+    }
+
+    .mobile-menu li {
+        border-top: 1px solid #ddd;
+        padding: 10px 0;
+        text-align: center;
+    }
+
+    .mobile-menu li a {
+        text-decoration: none;
+        color: #42B4CA;
+        font-weight: bold;
+        transition: color 0.3s ease;
+    }
+
+    .mobile-menu li a:hover {
+        color: #A4C955;
+    }
+}
+
+/*
+----------------------------*/
+
+/*
+DİZİ ADI VE GÖRSELİ
+----------------------------*/
+#title {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 20px;
+
+    border-radius: 15px;
+
+    background-color: #fff;
+    box-shadow: 1px 0 15px #A4C955;
+}
+
+.image-container img {
+    width: 10vw;
+    border: 1px solid #333;
+    border-radius: 15px;
+    box-shadow: 1px 0 15px #333;
+}
+
+.text-container {
+    width: 75%;
+    color: #333;
+    text-align: justify;
+}
+
+/*
+----------------------------*/
+
+/*
+KARAKTERLER
+----------------------------*/
+.characters-grid {
+    width: 100%;
+    margin: 50px 0;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 75px;
+}
+
+.character-card {
+    padding: 20px;
+    border-radius: 15px;
+
+    cursor: grab;
+
+    perspective: 1000px;
+    width: 200px;
+    height: 400px;
+
+    background-color: #fff;
+
+    box-shadow: 1px 0 15px #A4C955;
+}
+
+.card-inner {
+    background-color: #fff;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+}
+
+.character-card:hover .card-inner {
+    transform: rotateY(180deg);
+}
+
+
+.character-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    backface-visibility: hidden;
+
+    display: flex;
+    justify-content: center;
+}
+
+.character-img img {
+    width: auto;
+    height: 400px;
+    object-fit: contain;
+}
+
+.character-desc {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    text-align: justify;
+
+    color: #333;
+
+    backface-visibility: hidden;
+
+    transform: rotateY(180deg);
+}
+
+/*
+----------------------------*/
+
+/*
+FAVORİ SAHNE
+----------------------------*/
+#scene {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+    margin: 20px;
+    gap: 10px;
+    border-radius: 15px;
+
+    color: #333;
+    background-color: #fff;
+    box-shadow: 1px 0 15px #A4C955;
+}
+
+.scene-desc {
+    text-align: center;
+}
+
+.video-container iframe {
+    width: 100%;
+}
+
+/*
+----------------------------*/
+
+
+/*
+BÖLÜMLER
+----------------------------*/
+.episode-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px;
+
+    color: #333;
+}
+
+.episode-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all ease-in-out .3s;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    user-select: none;
+}
+
+.episode-card:hover {
+    background-color: #A4C955;
+    color: #333;
+}
+
+.episode-card a {
+    color: #333;
+    text-decoration: none;
+}
+
+.episode-card a:hover {
+    opacity: .5;
+}
+
+.episode-link {
+    display: flex;
+    justify-content: end;
+}
+
+/*
+----------------------------*/
+
+
+/*
+HAKKIMDA
+----------------------------*/
+.about {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    max-width: 1000px;
+    margin: 50px auto;
+    animation-name: fadeInUp;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.profile-photo {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    flex-shrink: 0;
+}
+
+.portal-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 1;
+    animation: rotate 10s linear infinite;
+}
+
+.profile-img {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    top: 60px;
+    left: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #A4C955;
+    box-shadow: 1px 0 15px #A4C955;
+    z-index: 2;
+}
+
+.info {
+    flex: 1;
+}
+
+.info h1 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 28px;
+}
+
+.info p {
+    color: #333;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.social-links {
+    display: flex;
+    gap: 20px;
+}
+
+.social-links a {
+    font-size: 24px;
+    color: #00cccc;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-links a:hover {
+    transform: scale(1.2);
+    color: #A4C955;
+}
+
+/*
+----------------------------*/
+
+
+/*
+PORTAL OLUŞTURUCU
+----------------------------*/
+#portal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    overflow: visible;
+    z-index: 0;
+}
+
+.portal-small {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-image: url('images/portal.webp');
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0;
+    animation-name: portalRise;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+    animation-duration: 3s;
+}
+
+/*
+----------------------------*/
+
+
+/*
+ANİMASYONLAR
+----------------------------*/
+@keyframes portalRise {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.7);
+    }
+
+    30% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.5);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes portalIntroWarp {
+    0% {
+        opacity: 1;
+        transform: scale(2) skew(0deg, 0deg) rotate(0deg);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.2) skew(15deg, 10deg) rotate(10deg);
+    }
+
+    80% {
+        opacity: 1;
+        transform: scale(1) skew(-10deg, -5deg) rotate(-5deg);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0) skew(0deg, 0deg) rotate(0deg);
+    }
+}
+
+.fadeInUp {
+    opacity: 0;
+    animation-name: fadeInUp;
+    animation-duration: 0.6s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease;
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: scale(0.3);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+
+    70% {
+        transform: scale(0.9);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.bounce-in {
+    animation: bounceIn 0.6s ease;
+}
+
+
+#full-portal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: url('images/portal.webp') no-repeat center center;
+    background-size: contain;
+    z-index: 10000;
+    animation-name: portalIntroWarp;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+}
+
+/*
+----------------------------*/
+
+/*
+MEDIA QUERIES
+----------------------------*/
+
+@media screen and (max-width: 768px) {
+
+    .main-container {
+        width: 80vw;
+    }
+
+    /* DİZİ ADI VE GÖRSELİ  */
+    #title {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .image-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 25px;
+    }
+
+    .image-container img {
+        width: 50%;
+    }
+
+    /*----------------*/
+
+    /* KARAKTERLER */
+    .characters-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    /*----------------*/
+
+
+    /* BÖLÜMLER */
+
+    .episode-list {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    /*----------------*/
+
+    /* HAKKIMDA */
+
+    .main-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .about {
+        width: 100%;
+        margin: 10px;
+    }
+
+    .profile-photo {
+        width: 160px;
+        height: 160px;
+    }
+
+    .profile-img {
+        top: 30px;
+        left: 30px;
+        width: 100px;
+        height: 100px;
+    }
+
+    /*----------------*/
+}
+
+/*
+----------------------------*/
