@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
         menuIcon.src = isOpen ? "images/morty_head.png" : "images/rick_head.png";
 
         menuIcon.classList.remove("bounce-in");
-        void menuIcon.offsetWidth; // reflow zorlamak için
+        void menuIcon.offsetWidth; 
         menuIcon.classList.add("bounce-in");
 
         mobileNavbar.style.borderRadius = isOpen ? "15px 15px 0 0" : "15px";
