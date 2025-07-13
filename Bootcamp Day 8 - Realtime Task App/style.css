@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', 'Arial', 'sans-serif';
+    padding: 20px;
+    background-color: #f2f2f2;
+    width: 90vw;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-left {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+}
+
+#taskForm {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px auto;
+}
+
+input[type="text"],
+button {
+    background-color: #fff;
+
+    padding: 5px 15px;
+
+    border: none;
+    border-radius: 15px;
+
+    box-shadow: 1px 0 5px #333;
+
+    cursor: pointer;
+
+    transition: all ease-in-out .3s;
+}
+
+button:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+table {
+    width: 100%;
+    border-radius: 15px;
+    margin-top: 25px;
+    background-color: #fff;
+}
+
+th,
+td {
+    padding: 15px;
+    text-transform: capitalize;
+}
+
+.task {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.completed {
+    background-color: #e0e0e0 !important;
+    color: #777 !important;
+}
+
+.completed td {
+    opacity: 0.6;
+}
+
+.low {
+    background-color: #7FB3D5;
+}
+
+.medium {
+    background-color: #F7DC6F;
+}
+
+.high {
+    background-color: #E74C3C;
+
+}
+
+.completeBtn {
+    color: #fff;
+    background-color: #5cb85c;
+}
+
+.deleteBtn {
+    color: #fff;
+    background-color: #d9534f;
+}
+
+#emptyMessage {
+    display: none;
+    text-align: center;
+    margin: 50px 0;
+    font-size: 1.2em;
+    color: #999;
+}
+
+#error {
+    color: #fff;
+    background-color: #d9534f;
+    border-radius: 5px;
+    box-shadow: 1px 0 5px #d9534f;
+    z-index: 3;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 2vh;
+    right: 1vw;
+    padding: 10px;
+
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    transform: translateY(2vh);
+}
+
+
+#error.show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+
+@media (max-width: 1024px) {
+    .text-left {
+        text-align: center;
+        justify-content: center;
+    }
+
+    #taskForm {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    #taskForm input {
+        margin-bottom: 20px;
+    }
+
+    th {
+        font-size: 10px;
+    }
+}

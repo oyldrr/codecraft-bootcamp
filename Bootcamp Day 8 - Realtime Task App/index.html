@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerçek Zamanlı Görev Yönetimi</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+    <h1 class="text-left">Görev Listesi</h1>
+
+    <form id="taskForm">
+        <input type="text" id="title" placeholder="Başlık">
+        <input type="text" id="description" placeholder="Açıklama (Opsiyonel)">
+        <div>
+            <label>Öncelik:</label>
+            <label><input type="radio" name="priority" value="low"> Düşük</label>
+            <label><input type="radio" name="priority" value="medium"> Orta</label>
+            <label><input type="radio" name="priority" value="high"> Yüksek</label>
+        </div>
+        <button type="submit">Yeni Görev Ekle <i class="fa-solid fa-arrow-down"></i></button>
+    </form>
+
+    <div class="text-left">
+        <label for="filterBtn"><input type="checkbox" id="filterBtn"> Sadece tamamlananları göster</label>
+    </div>
+
+    <div class="table-wrapper">
+        <table id="taskList">
+            <tr>
+                <th>BAŞLIK</th>
+                <th>AÇIKLAMA</th>
+                <th>ÖNCELİK</th>
+                <th>BUTONLAR</th>
+            </tr>
+        </table>
+    </div>
+
+
+    <p id="emptyMessage">
+        <i class="fa-solid fa-inbox"></i> Görev bulunamadı
+    </p>
+
+    <div id="error"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
