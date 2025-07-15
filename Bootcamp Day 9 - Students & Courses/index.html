@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students & Courses</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+
+    <h2>Öğrenciler ve Dersler</h2>
+
+    <form id="studentForm">
+        <input type="text" id="name" placeholder="Adı Soyadı" required>
+        <input type="text" id="courses" placeholder="Dersler (virgülle ayırın)" required>
+        <input type="number" id="grade" placeholder="Not" required>
+        <button type="submit">Ekle</button>
+    </form>
+
+    <table id="studentTable">
+        <thead>
+            <tr>
+                <th>Ad</th>
+                <th>Dersler</th>
+                <th>Not</th>
+                <th>İşlem</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+
+
+    <!--jQuery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+
+        let studentData = [
+            {
+                name: "Ali Yılmaz",
+                courses: ["Matematik", "Fizik", "Programlama"],
+                grades: [85]
+            },
+            {
+                name: "Ayşe Demir",
+                courses: ["Matematik", "Kimya", "Veri Tabanı"],
+                grades: [90]
+            },
+            {
+                name: "Mehmet Kaya",
+                courses: ["İngilizce", "Fizik", "Web Tasarımı"],
+                grades: [75]
+            }
+        ];
+
+        function renderTable() {
+            const tbody = $("#studentTable tbody");
+            tbody.empty();
+
+            studentData.forEach((student, index) => {
+                const row = $(`
+          <tr data-index="${index}">
+            <td>${student.name}</td>
+            <td>${student.courses.join(", ")}</td>
+            <td>${student.grades[0]}</td>
+            <td><button class="delete-btn"><i class="fas fa-trash"></i> Kaydı Silin</button></td>
+          </tr>
+        `);
+
+                row.on("click", function () {
+                    $(this).toggleClass("highlighted");
+                });
+
+                row.find(".delete-btn").on("click", function (e) {
+                    const idx = $(this).closest("tr").data("index");
+                    studentData.splice(idx, 1);
+                    renderTable();
+                });
+
+                tbody.append(row);
+            });
+        }
+
+        $(document).ready(function () {
+            renderTable();
+
+            $("#studentForm").submit(function (e) {
+                e.preventDefault();
+
+                const name = $("#name").val().trim();
+                const coursesInput = $("#courses").val().trim();
+                const grade = parseInt($("#grade").val());
+
+                if (!name || !coursesInput || isNaN(grade)) {
+                    alert("Lütfen tüm alanları doğru şekilde doldurun.");
+                    return;
+                }
+
+                const courses = coursesInput.split(",").map(d => d.trim());
+
+                studentData.push({
+                    name,
+                    courses,
+                    grades: [grade]
+                });
+
+                renderTable();
+                this.reset();
+            });
+        });
+    </script>
+
+</body>
+
+</html>
