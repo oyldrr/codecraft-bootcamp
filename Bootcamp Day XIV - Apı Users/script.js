@@ -1,55 +1,60 @@
 /* eslint-disable */
 (($) => {
-    'use strict';
+  'use strict';
 
-    const classes = {
-        style: 'ins-user-style',
-        wrapper: 'ins-user-wrapper',
-        container: 'ins-user-container',
-        card: 'ins-user-card',
-        deleteButton: 'ins-user-delete-btn',
-        header: 'ins-user-header',
-        footer: 'ins-user-footer'
-    };
+  const classes = {
+    style: 'ins-user-style',
+    wrapper: 'ins-user-wrapper',
+    container: 'ins-user-container',
+    card: 'ins-user-card',
+    deleteButton: 'ins-user-delete-btn',
+    header: 'ins-user-header',
+    footer: 'ins-user-footer'
+  };
 
-    const selectors = {
-        style: `.${classes.style}`,
-        wrapper: `.${classes.wrapper}`,
-        card: `.${classes.card}`,
-        deleteButton: `.${classes.deleteButton}`,
-        header: `.${classes.header}`,
-        footer: `.${classes.footer}`,
-        appendLocation: '.ins-api-users'
-    };
+  const selectors = {
+    style: `.${classes.style}`,
+    wrapper: `.${classes.wrapper}`,
+    card: `.${classes.card}`,
+    deleteButton: `.${classes.deleteButton}`,
+    header: `.${classes.header}`,
+    footer: `.${classes.footer}`,
+    appendLocation: '.ins-api-users'
+  };
 
-    const self = {};
-    const STORAGE_KEY = 'ins_users';
-    const STORAGE_TIME_KEY = 'ins_users_time';
-    const ONE_DAY = 24 * 60 * 60 * 1000;
+  const self = {};
+  const STORAGE_KEY = 'ins_users';
+  const STORAGE_TIME_KEY = 'ins_users_time';
+  const ONE_DAY = 24 * 60 * 60 * 1000;
 
-    self.init = () => {
-        self.reset();
-        self.buildCSS();
-        self.buildLayout();
-        self.loadData().then(data => {
-            self.buildCards(data);
-            self.setEvents();
-        }).catch(err => {
-            self.showError(err);
-        });
-    };
+  self.init = () => {
+    self.reset();
+    self.buildCSS();
+    self.buildLayout();
+    self.loadData()
+      .then(data => {
+        self.buildCards(data);
+        self.setEvents();
+      })
+      .catch(err => {
+        self.showError(err);
+      });
+  };
 
-    self.reset = () => {
-        $(selectors.style).remove();
-        $(selectors.wrapper).remove();
-        $(selectors.header).remove();
-        $(selectors.footer).remove();
-        $(document).off('.userEvents');
-    };
+  self.reset = () => {
+    $(selectors.style).remove();
+    $(selectors.wrapper).remove();
+    $(selectors.header).remove();
+    $(selectors.footer).remove();
+    $(document).off('.userEvents');
+  };
 
-    self.buildCSS = () => {
-        const css = `
+  self.buildCSS = () => {
+    const css = `
       <style class="${classes.style}">
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
+
         body {
           font-family: 'Poppins', sans-serif;
           margin: 0;
@@ -138,20 +143,20 @@
         }
       </style>
     `;
-        $('head').append(css);
-    };
+    $('head').append(css);
+  };
 
-    self.buildLayout = () => {
-        const header = `<header class="${classes.header}"><h1><i class="fas fa-users"></i> Kullanıcı Listesi</h1></header>`;
-        const wrapper = `<div class="${classes.wrapper}"></div>`;
-        const footer = `<footer class="${classes.footer}"><p><i class="fas fa-code"></i> Codecraft Bootcamp kapsamında oyldrr tarafından hazırlandı.</p></footer>`;
-        $(selectors.appendLocation).append(header + wrapper + footer);
-    };
+  self.buildLayout = () => {
+    const header = `<header class="${classes.header}"><h1><i class="fas fa-users"></i> Kullanıcı Listesi</h1></header>`;
+    const wrapper = `<div class="${classes.wrapper}"></div>`;
+    const footer = `<footer class="${classes.footer}"><p><i class="fas fa-code"></i> Basit jQuery Uygulaması – JSONPlaceholder API, localStorage, modern stil.</p></footer>`;
+    $(selectors.appendLocation).append(header + wrapper + footer);
+  };
 
-    self.buildCards = (users) => {
-        const $wrapper = $(selectors.wrapper);
-        users.forEach(user => {
-            const $card = $(`
+  self.buildCards = (users) => {
+    const $wrapper = $(selectors.wrapper);
+    users.forEach(user => {
+      const $card = $(`
         <div class="${classes.card}" data-id="${user.id}">
           <h3><i class="fas fa-user"></i> ${user.name}</h3>
           <p><i class="fas fa-envelope"></i> ${user.email}</p>
@@ -161,56 +166,56 @@
           </button>
         </div>
       `);
-            $wrapper.append($card);
+      $wrapper.append($card);
+    });
+  };
+
+  self.setEvents = () => {
+    $(document).on('click.userEvents', selectors.deleteButton, function () {
+      const $card = $(this).closest(selectors.card);
+      const id = parseInt($card.data('id'));
+      let users = self.getStorage();
+      users = users.filter(user => user.id !== id);
+      self.setStorage(users);
+      $card.remove();
+    });
+  };
+
+  self.loadData = () => {
+    return new Promise((resolve, reject) => {
+      const cached = self.getStorage();
+      const time = localStorage.getItem(STORAGE_TIME_KEY);
+      if (cached && time && (Date.now() - parseInt(time) < ONE_DAY)) {
+        resolve(cached);
+      } else {
+        $.ajax({
+          url: 'https://jsonplaceholder.typicode.com/users',
+          method: 'GET',
+          dataType: 'json'
+        }).done(data => {
+          self.setStorage(data);
+          resolve(data);
+        }).fail(() => {
+          reject('Kullanıcı verisi alınamadı.');
         });
-    };
+      }
+    });
+  };
 
-    self.setEvents = () => {
-        $(document).on('click.userEvents', selectors.deleteButton, function () {
-            const $card = $(this).closest(selectors.card);
-            const id = parseInt($card.data('id'));
-            let users = self.getStorage();
-            users = users.filter(user => user.id !== id);
-            self.setStorage(users);
-            $card.remove();
-        });
-    };
+  self.setStorage = (data) => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    localStorage.setItem(STORAGE_TIME_KEY, Date.now().toString());
+  };
 
-    self.loadData = () => {
-        return new Promise((resolve, reject) => {
-            const cached = self.getStorage();
-            const time = localStorage.getItem(STORAGE_TIME_KEY);
-            if (cached && time && (Date.now() - parseInt(time) < ONE_DAY)) {
-                resolve(cached);
-            } else {
-                $.ajax({
-                    url: 'https://jsonplaceholder.typicode.com/users',
-                    method: 'GET',
-                    dataType: 'json'
-                }).done(data => {
-                    self.setStorage(data);
-                    resolve(data);
-                }).fail(() => {
-                    reject('Kullanıcı verisi alınamadı.');
-                });
-            }
-        });
-    };
+  self.getStorage = () => {
+    const data = localStorage.getItem(STORAGE_KEY);
+    return data ? JSON.parse(data) : null;
+  };
 
-    self.setStorage = (data) => {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-        localStorage.setItem(STORAGE_TIME_KEY, Date.now().toString());
-    };
+  self.showError = (message) => {
+    const $error = $(`<div class="ins-error"><i class="fas fa-triangle-exclamation"></i> ${message}</div>`);
+    $(selectors.appendLocation).append($error);
+  };
 
-    self.getStorage = () => {
-        const data = localStorage.getItem(STORAGE_KEY);
-        return data ? JSON.parse(data) : null;
-    };
-
-    self.showError = (message) => {
-        const $error = $(`<div class="ins-error"><i class="fas fa-triangle-exclamation"></i> ${message}</div>`);
-        $(selectors.appendLocation).append($error);
-    };
-
-    $(document).ready(self.init);
+  $(document).ready(self.init);
 })(jQuery);
