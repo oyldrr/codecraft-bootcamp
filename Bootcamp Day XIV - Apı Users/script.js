@@ -149,7 +149,7 @@
   self.buildLayout = () => {
     const header = `<header class="${classes.header}"><h1><i class="fas fa-users"></i> Kullanıcı Listesi</h1></header>`;
     const wrapper = `<div class="${classes.wrapper}"></div>`;
-    const footer = `<footer class="${classes.footer}"><p><i class="fas fa-code"></i> Basit jQuery Uygulaması – JSONPlaceholder API, localStorage, modern stil.</p></footer>`;
+    const footer = `<footer class="${classes.footer}"><p><i class="fas fa-code"></i> CodeCraft Bootcamp kapsamında oyldrr tarafından hazırlanmıştır.</p></footer>`;
     $(selectors.appendLocation).append(header + wrapper + footer);
   };
 
